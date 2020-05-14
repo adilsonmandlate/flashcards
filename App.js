@@ -1,19 +1,20 @@
-import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import React, { useEffect } from "react";
+import { NavigationContainer } from "@react-navigation/native";
+import { MainRoute } from "./src/components";
+import { SafeAreaView, StatusBar } from "react-native";
+import { setLocalNotification } from "./src/utils/helper";
 
-export default function App() {
+export default App = () => {
+  useEffect(() => {
+    setLocalNotification();
+  }, []);
+
   return (
-    <View style={styles.container}>
-      <Text>Open up App.js to start working on your app!</Text>
-    </View>
+    <SafeAreaView style={{ flex: 1 }}>
+      <StatusBar barStyle="dark-content" />
+      <NavigationContainer>
+        <MainRoute />
+      </NavigationContainer>
+    </SafeAreaView>
   );
-}
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
+};
