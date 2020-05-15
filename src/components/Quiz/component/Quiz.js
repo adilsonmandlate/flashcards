@@ -73,7 +73,7 @@ const Quiz = ({ route, navigation }) => {
       setCorrection(correctNumber + 1);
     }
 
-    if (question + 1 != deck.questions.length) {
+    if (deck.questions.length && question + 1 != deck.questions.length) {
       setQuestion(question + 1);
     } else {
       setScoreVisibility(true);
