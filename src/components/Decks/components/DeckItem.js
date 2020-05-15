@@ -22,7 +22,9 @@ const DeckItem = ({ deck, onPress }) => {
     <Button underlayColor={"#ecf0f1"} onPress={() => onPress(deck?.title)}>
       <Fragment>
         <DeckName>{deck?.title}</DeckName>
-        <DecksCards>{`${deck?.questions?.length} decks`}</DecksCards>
+        <DecksCards>{`${deck?.questions?.length} ${
+          deck?.questions?.length > 1 ? "decks" : "deck"
+        }`}</DecksCards>
       </Fragment>
     </Button>
   );
