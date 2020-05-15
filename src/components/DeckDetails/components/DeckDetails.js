@@ -55,12 +55,12 @@ const DeckDetails = ({ route, navigation }) => {
   };
 
   const startQuiz = () => {
-    if (deck) {
+    if (deck && deck.questions.length > 0) {
       navigation.navigate("Quiz", {
         deckId: deck.title,
       });
     } else {
-      alert("Deck is undefined");
+      alert("There are no cards in this deck");
     }
   };
 
