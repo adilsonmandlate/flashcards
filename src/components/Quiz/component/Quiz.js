@@ -92,56 +92,74 @@ const Quiz = ({ route, navigation }) => {
   };
 
   return (
-    <Container>
-      {deck?.questions && !showScore && (
-        <Fragment>
-          <Text style={{ fontSize: 18, fontWeight: "600" }}>
-            {`${question + 1}/${deck?.questions?.length}`}
+    <Fragment>
+      {deck?.questions?.length > 0 && (
+        <Container>
+          {deck?.questions && !showScore && (
+            <Fragment>
+              <Text style={{ fontSize: 18, fontWeight: "600" }}>
+                {`${question + 1}/${deck?.questions?.length}`}
+              </Text>
+              <View style={{ flex: 1 }}>
+                {!showAnswer && (
+                  <QuestionText>
+                    {deck?.questions[question]?.question}
+                  </QuestionText>
+                )}
+                {showAnswer && (
+                  <QuestionText>
+                    {deck?.questions[question]?.answer}
+                  </QuestionText>
+                )}
+
+                {showAnswer && (
+                  <TouchableOpacity onPress={() => setAnswer(false)}>
+                    <ShowQuestionAnswer>Question</ShowQuestionAnswer>
+                  </TouchableOpacity>
+                )}
+                {!showAnswer && (
+                  <TouchableOpacity onPress={() => setAnswer(true)}>
+                    <ShowQuestionAnswer>Answer</ShowQuestionAnswer>
+                  </TouchableOpacity>
+                )}
+              </View>
+              <View>
+                <QuizButton onPress={() => handleCorrection(true)}>
+                  <Text style={{ color: "#fff" }}>Correct</Text>
+                </QuizButton>
+                <QuizButton incorrect onPress={() => handleCorrection(false)}>
+                  <Text style={{ color: "#fff" }}>Incorrect</Text>
+                </QuizButton>
+              </View>
+            </Fragment>
+          )}
+
+          {showScore && (
+            <Fragment>
+              <ScoreText>
+                You scored {correctNumber} of {deck?.questions?.length}
+              </ScoreText>
+              <QuizButton onPress={() => restartQuiz()}>
+                <Text style={{ color: "#fff" }}>Restart Quiz</Text>
+              </QuizButton>
+              <TouchableOpacity onPress={() => navigation.goBack()}>
+                <ShowQuestionAnswer>Go back to Deck</ShowQuestionAnswer>
+              </TouchableOpacity>
+            </Fragment>
+          )}
+        </Container>
+      )}
+
+      {deck?.questions?.length == 0 && (
+        <View style={{ flex: 1, justifyContent: "center", padding: 20 }}>
+          <Text
+            style={{ textAlign: "center", fontSize: 18, fontWeight: "600" }}
+          >
+            Sorry, you cannot take a quiz because there are no cards in the deck
           </Text>
-          <View style={{ flex: 1 }}>
-            {!showAnswer && (
-              <QuestionText>{deck?.questions[question]?.question}</QuestionText>
-            )}
-            {showAnswer && (
-              <QuestionText>{deck?.questions[question]?.answer}</QuestionText>
-            )}
-
-            {showAnswer && (
-              <TouchableOpacity onPress={() => setAnswer(false)}>
-                <ShowQuestionAnswer>Question</ShowQuestionAnswer>
-              </TouchableOpacity>
-            )}
-            {!showAnswer && (
-              <TouchableOpacity onPress={() => setAnswer(true)}>
-                <ShowQuestionAnswer>Answer</ShowQuestionAnswer>
-              </TouchableOpacity>
-            )}
-          </View>
-          <View>
-            <QuizButton onPress={() => handleCorrection(true)}>
-              <Text style={{ color: "#fff" }}>Correct</Text>
-            </QuizButton>
-            <QuizButton incorrect onPress={() => handleCorrection(false)}>
-              <Text style={{ color: "#fff" }}>Incorrect</Text>
-            </QuizButton>
-          </View>
-        </Fragment>
+        </View>
       )}
-
-      {showScore && (
-        <Fragment>
-          <ScoreText>
-            You scored {correctNumber} of {deck?.questions?.length}
-          </ScoreText>
-          <QuizButton onPress={() => restartQuiz()}>
-            <Text style={{ color: "#fff" }}>Restart Quiz</Text>
-          </QuizButton>
-          <TouchableOpacity onPress={() => navigation.goBack()}>
-            <ShowQuestionAnswer>Go back to Deck</ShowQuestionAnswer>
-          </TouchableOpacity>
-        </Fragment>
-      )}
-    </Container>
+    </Fragment>
   );
 };
 
