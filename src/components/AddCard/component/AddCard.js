@@ -1,9 +1,16 @@
-import React, { useState } from "react";
-import { Text, View } from "react-native";
+import React, { useState, Fragment } from "react";
+import {
+  Text,
+  View,
+  TouchableWithoutFeedback,
+  KeyboardAvoidingView,
+  Keyboard,
+  SafeAreaView,
+} from "react-native";
 import styled from "styled-components/native";
 import { addCardToDeck } from "../../../utils/helper";
 
-const Container = styled.View`
+const Container = styled(KeyboardAvoidingView)`
   flex: 1;
   padding: 20px;
   background: #fff;
@@ -41,30 +48,36 @@ const AddCard = ({ route, navigation }) => {
   };
 
   return (
-    <Container>
-      <View style={{ flex: 1 }}>
-        <Input
-          value={values.question}
-          placeholder="Question"
-          onChange={(value) =>
-            setValues({ ...values, question: value.nativeEvent.text })
-          }
-        />
-        <Input
-          value={values.answer}
-          placeholder="Answer"
-          onChange={(value) =>
-            setValues({ ...values, answer: value.nativeEvent.text })
-          }
-        />
-      </View>
+    <Container behavior={"padding"}>
+      <SafeAreaView style={{ flex: 1 }}>
+        <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
+          <Fragment>
+            <View style={{ flex: 1 }}>
+              <Input
+                value={values.question}
+                placeholder="Question"
+                onChange={(value) =>
+                  setValues({ ...values, question: value.nativeEvent.text })
+                }
+              />
+              <Input
+                value={values.answer}
+                placeholder="Answer"
+                onChange={(value) =>
+                  setValues({ ...values, answer: value.nativeEvent.text })
+                }
+              />
+            </View>
 
-      <Button
-        disabled={values.question && values.answer ? false : true}
-        onPress={handleSubmit}
-      >
-        <Text style={{ color: "#fff" }}>Add Card</Text>
-      </Button>
+            <Button
+              disabled={values.question && values.answer ? false : true}
+              onPress={handleSubmit}
+            >
+              <Text style={{ color: "#fff" }}>Add Card</Text>
+            </Button>
+          </Fragment>
+        </TouchableWithoutFeedback>
+      </SafeAreaView>
     </Container>
   );
 };
