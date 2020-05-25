@@ -4419,6 +4419,11 @@ react-is@^16.12.0, react-is@^16.13.0, react-is@^16.7.0, react-is@^16.8.1, react-
   resolved "https://registry.yarnpkg.com/react-is/-/react-is-16.13.1.tgz#789729a4dc36de2999dc156dd6c1d9c18cea56a4"
   integrity sha512-24e6ynE2H+OKt4kqsOvNd8kBpV65zoxbA4BVsEOB3ARVWQki/DHzaUoC5KuON/BiccDaCCTZBuOcfZs70kR8bQ==
 
+react-native-fade@^2.0.1:
+  version "2.0.1"
+  resolved "https://registry.yarnpkg.com/react-native-fade/-/react-native-fade-2.0.1.tgz#9821b34a2c8e82411f4cf1eec28d3aeef315edb6"
+  integrity sha512-jIjIVMk90hv0QMpO6pjzWqB8QV7BpAuAC9T69TsXC6Eik/BF1XwDo0lVcZkzV+21qZvU61vlfOXuMP4+hf8zgg==
+
 react-native-gesture-handler@^1.6.1:
   version "1.6.1"
   resolved "https://registry.yarnpkg.com/react-native-gesture-handler/-/react-native-gesture-handler-1.6.1.tgz#678e2dce250ed66e93af409759be22cd6375dd17"
