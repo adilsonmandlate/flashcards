@@ -9,7 +9,7 @@ const Stack = createStackNavigator();
 
 const DecksListNavigator = () => {
   return (
-    <Stack.Navigator>
+    <Stack.Navigator headerMode="none">
       <Stack.Screen name="Decks" component={DecksList} />
       <Stack.Screen name="Quiz" component={Quiz} />
       <Stack.Screen name="New Card" component={AddCard} />
