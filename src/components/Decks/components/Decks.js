@@ -1,20 +1,12 @@
-import React, { useState, useEffect } from "react";
-import { FlatList } from "react-native";
+import React, { useState, useEffect, useCallback } from "react";
+import { FlatList, StatusBar } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
 import styled from "styled-components/native";
 import DeckItem from "./DeckItem";
 import { HeaderScrollView } from "../../HeaderScrollView";
 import { getDecks } from "../../../utils/helper";
-
-const Actions = () => {
-  return <Ionicons name="ios-list" size={24} color={"green"} />;
-};
-
-const Container = styled.View`
-  flex: 1;
-  margin: 0;
-  background-color: #fff;
-`;
+import { SafeAreaView } from "react-native-safe-area-context";
+import { useFocusEffect } from "@react-navigation/native";
 
 const DecksList = ({ navigation }) => {
   const [decks, setDecks] = useState([]);
@@ -27,6 +19,12 @@ const DecksList = ({ navigation }) => {
     return unsubscribe;
   }, [navigation]);
 
+  useFocusEffect(
+    useCallback(() => {
+      StatusBar.setBarStyle("dark-content");
+    }, [])
+  );
+
   const getDecksData = () => {
     getDecks()
       .then((newDecks) => {
@@ -37,6 +35,10 @@ const DecksList = ({ navigation }) => {
       });
   };
 
+  const RenderActions = () => {
+    return <Ionicons name="ios-add-circle-outline" size={24} color={"green"} />;
+  };
+
   const onPress = (id) => {
     navigation.navigate("Deck Details", {
       id,
@@ -44,15 +46,20 @@ const DecksList = ({ navigation }) => {
   };
 
   return (
-    <Container>
-      <HeaderScrollView title="Decks">
+    <SafeAreaView
+      style={{
+        flex: 1,
+        backgroundColor: "white",
+      }}
+    >
+      <HeaderScrollView title="Decks" actions={<RenderActions />}>
         <FlatList
           data={decks}
           keyExtractor={(item) => item.title}
           renderItem={({ item }) => <DeckItem onPress={onPress} deck={item} />}
         />
       </HeaderScrollView>
-    </Container>
+    </SafeAreaView>
   );
 };
 
