@@ -1,7 +1,8 @@
-import React, { useState } from "react";
-import { View, Text } from "react-native";
+import React, { useState, useCallback } from "react";
+import { View, Text, StatusBar } from "react-native";
 import { saveDeckTitle } from "../../../utils/helper";
 import styled from "styled-components/native";
+import { useFocusEffect } from "@react-navigation/native";
 
 const Container = styled.View`
   flex: 1;
@@ -34,6 +35,12 @@ const Button = styled.TouchableOpacity`
 
 const AddDeck = ({ navigation }) => {
   const [title, setTitle] = useState("");
+
+  useFocusEffect(
+    useCallback(() => {
+      StatusBar.setBarStyle("light-content");
+    }, [])
+  );
 
   const handleSubmit = () => {
     saveDeckTitle(title).then(() => {

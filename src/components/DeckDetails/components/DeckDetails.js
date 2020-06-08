@@ -1,7 +1,9 @@
-import React, { useEffect, useState } from "react";
-import { Text, Button, View } from "react-native";
+import React, { useEffect, useState, useCallback } from "react";
+import { Text, Button, View, StatusBar } from "react-native";
 import styled from "styled-components";
 import { removeDeck, getDeck } from "../../../utils/helper";
+import { useFocusEffect } from "@react-navigation/native";
+import { SafeAreaView } from "react-native-safe-area-context";
 
 const Container = styled.View`
   background: #fff;
@@ -40,6 +42,12 @@ const DeckDetails = ({ route, navigation }) => {
     return unsubscribe;
   }, [navigation]);
 
+  useFocusEffect(
+    useCallback(() => {
+      StatusBar.setBarStyle("dark-content");
+    }, [])
+  );
+
   const getDeckData = () => {
     getDeck(id)
       .then((result) => {
@@ -66,33 +74,35 @@ const DeckDetails = ({ route, navigation }) => {
 
   return (
     <Container>
-      <View style={{ flex: 1 }}>
-        <DeckName>{deck?.title}</DeckName>
-        <Text style={{ textAlign: "center" }}>
-          {`${deck?.questions?.length} ${
-            deck?.questions?.length > 1 ? "decks" : "deck"
-          }`}{" "}
-        </Text>
-      </View>
-      <ButtonContainers>
-        <ButtonTouchable
-          onPress={() =>
-            navigation.navigate("New Card", {
-              deckId: deck?.title,
-            })
-          }
-        >
-          <Text style={{ color: "#fff" }}>Add Card</Text>
-        </ButtonTouchable>
-        <ButtonTouchable onPress={startQuiz}>
-          <Text style={{ color: "#fff" }}>Start Quiz</Text>
-        </ButtonTouchable>
-        <Button
-          onPress={() => handleDelete(deck?.title)}
-          color="#e74c3c"
-          title="Delete Deck"
-        />
-      </ButtonContainers>
+      <SafeAreaView style={{ flex: 1 }}>
+        <View style={{ flex: 1 }}>
+          <DeckName>{deck?.title}</DeckName>
+          <Text style={{ textAlign: "center" }}>
+            {`${deck?.questions?.length} ${
+              deck?.questions?.length > 1 ? "decks" : "deck"
+            }`}{" "}
+          </Text>
+        </View>
+        <ButtonContainers>
+          <ButtonTouchable
+            onPress={() =>
+              navigation.navigate("New Card", {
+                deckId: deck?.title,
+              })
+            }
+          >
+            <Text style={{ color: "#fff" }}>Add Card</Text>
+          </ButtonTouchable>
+          <ButtonTouchable onPress={startQuiz}>
+            <Text style={{ color: "#fff" }}>Start Quiz</Text>
+          </ButtonTouchable>
+          <Button
+            onPress={() => handleDelete(deck?.title)}
+            color="#e74c3c"
+            title="Delete Deck"
+          />
+        </ButtonContainers>
+      </SafeAreaView>
     </Container>
   );
 };

@@ -1,4 +1,4 @@
-import React, { useState, Fragment } from "react";
+import React, { useState, Fragment, useCallback } from "react";
 import {
   Text,
   View,
@@ -6,9 +6,11 @@ import {
   KeyboardAvoidingView,
   Keyboard,
   SafeAreaView,
+  StatusBar,
 } from "react-native";
 import styled from "styled-components/native";
 import { addCardToDeck } from "../../../utils/helper";
+import { useFocusEffect } from "@react-navigation/native";
 
 const Container = styled(KeyboardAvoidingView)`
   flex: 1;
@@ -34,6 +36,12 @@ const Button = styled.TouchableOpacity`
 
 const AddCard = ({ route, navigation }) => {
   const { deckId } = route.params;
+
+  useFocusEffect(
+    useCallback(() => {
+      StatusBar.setBarStyle("light-content");
+    }, [])
+  );
 
   const [values, setValues] = useState({
     question: "",

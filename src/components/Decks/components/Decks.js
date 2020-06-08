@@ -1,7 +1,6 @@
 import React, { useState, useEffect, useCallback } from "react";
 import { FlatList, StatusBar } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
-import styled from "styled-components/native";
 import DeckItem from "./DeckItem";
 import { HeaderScrollView } from "../../HeaderScrollView";
 import { getDecks } from "../../../utils/helper";
@@ -36,7 +35,14 @@ const DecksList = ({ navigation }) => {
   };
 
   const RenderActions = () => {
-    return <Ionicons name="ios-add-circle-outline" size={24} color={"green"} />;
+    return (
+      <Ionicons
+        name="ios-add-circle-outline"
+        size={24}
+        color={"green"}
+        onPress={() => navigation.navigate("Add Deck")}
+      />
+    );
   };
 
   const onPress = (id) => {
