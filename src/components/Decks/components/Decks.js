@@ -1,11 +1,10 @@
-import React, { useState, useEffect, useCallback } from "react";
+import React, { useState, useEffect, useCallback, useContext } from "react";
 import { FlatList, StatusBar } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
 import DeckItem from "./DeckItem";
-import { HeaderScrollView } from "../../HeaderScrollView";
 import { getDecks } from "../../../utils/helper";
-import { SafeAreaView } from "react-native-safe-area-context";
 import { useFocusEffect } from "@react-navigation/native";
+import { navigate } from "../../../utils/RootNavigation";
 
 const DecksList = ({ navigation }) => {
   const [decks, setDecks] = useState([]);
@@ -34,17 +33,6 @@ const DecksList = ({ navigation }) => {
       });
   };
 
-  const RenderActions = () => {
-    return (
-      <Ionicons
-        name="ios-add-circle-outline"
-        size={24}
-        color={"green"}
-        onPress={() => navigation.navigate("Add Deck")}
-      />
-    );
-  };
-
   const onPress = (id) => {
     navigation.navigate("Deck Details", {
       id,
@@ -52,20 +40,24 @@ const DecksList = ({ navigation }) => {
   };
 
   return (
-    <SafeAreaView
-      style={{
-        flex: 1,
-        backgroundColor: "white",
-      }}
-    >
-      <HeaderScrollView title="Decks" actions={<RenderActions />}>
-        <FlatList
-          data={decks}
-          keyExtractor={(item) => item.title}
-          renderItem={({ item }) => <DeckItem onPress={onPress} deck={item} />}
-        />
-      </HeaderScrollView>
-    </SafeAreaView>
+    <FlatList
+      data={decks}
+      style={{ backgroundColor: "white" }}
+      keyExtractor={(item) => item.title}
+      renderItem={({ item }) => <DeckItem onPress={onPress} deck={item} />}
+    />
+  );
+};
+
+export const RenderActions = () => {
+  /** This component uses navigate from RootNavigator, coming from utils, not react-navigation */
+  return (
+    <Ionicons
+      name="ios-add-circle-outline"
+      size={24}
+      color={"green"}
+      onPress={() => navigate("Add Deck")}
+    />
   );
 };
 
