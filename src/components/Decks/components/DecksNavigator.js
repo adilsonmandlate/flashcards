@@ -1,30 +1,22 @@
 import React from "react";
-import {
-  createStackNavigator,
-  TransitionPresets,
-} from "@react-navigation/stack";
-import DecksList from "./Decks";
+import { createNativeStackNavigator } from "react-native-screens/native-stack";
+import DecksList, { RenderActions } from "./Decks";
 import DeckDetails from "../../DeckDetails/components/DeckDetails";
 import AddCard from "../../AddCard/component/AddCard";
 import Quiz from "../../Quiz/component/Quiz";
 import AddDeck from "../../AddDeck/components/AddDeck";
 
-const Stack = createStackNavigator();
+const Stack = createNativeStackNavigator();
 
 const DecksListNavigator = () => {
   return (
-    <Stack.Navigator
-      mode="modal"
-      screenOptions={() => ({
-        cardOverlayEnabled: true,
-        gestureEnabled: true,
-      })}
-    >
+    <Stack.Navigator>
       <Stack.Screen
         name="Decks"
         component={DecksList}
         options={{
-          headerShown: false,
+          headerLargeTitle: true,
+          headerRight: () => <RenderActions />,
         }}
       />
       <Stack.Screen name="Quiz" component={Quiz} />
@@ -33,7 +25,7 @@ const DecksListNavigator = () => {
         component={AddDeck}
         options={{
           headerShown: false,
-          ...TransitionPresets.ModalPresentationIOS,
+          stackPresentation: "modal",
         }}
       />
       <Stack.Screen
@@ -41,7 +33,7 @@ const DecksListNavigator = () => {
         component={AddCard}
         options={{
           headerShown: false,
-          ...TransitionPresets.ModalPresentationIOS,
+          stackPresentation: "modal",
         }}
       />
       <Stack.Screen name="Deck Details" component={DeckDetails} />
