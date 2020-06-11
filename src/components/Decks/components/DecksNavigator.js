@@ -10,7 +10,14 @@ const Stack = createNativeStackNavigator();
 
 const DecksListNavigator = () => {
   return (
-    <Stack.Navigator>
+    <Stack.Navigator
+      screenOptions={{
+        headerStyle: {
+          backgroundColor: "#16a085",
+        },
+        headerTintColor: "#fff",
+      }}
+    >
       <Stack.Screen
         name="Decks"
         component={DecksList}
