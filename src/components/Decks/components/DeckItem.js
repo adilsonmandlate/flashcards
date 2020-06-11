@@ -1,59 +1,74 @@
 import React, { Fragment } from "react";
 import styled from "styled-components/native";
-import { Text } from "react-native";
+import Swipeable from "react-native-gesture-handler/Swipeable";
+import { View, Text, Animated } from "react-native";
 
 const Button = styled.TouchableHighlight`
-  padding: 15px 20px 15px;
+  padding: 30px 15px;
   border-bottom-width: 1px;
-  border-color: #ecf0f1;
-  height: 200px;
-  border-radius: 5px;
-  border-width: 1px;
-  margin-bottom: 5px;
+  border-color: rgba(236, 240, 241, 0.1);
 `;
 
 const DeckMain = styled.View`
+  margin-bottom: 10px;
   flex-direction: row;
   justify-content: space-between;
 `;
 
 const DeckName = styled.Text`
   font-size: 17px;
-  font-weight: 700;
-  margin-bottom: 5px;
+  font-weight: 500;
+  color: #fff;
 `;
 
-const DeckDescription = styled.Text`
-  text-align: justify;
-  font-size: 15px;
-  flex: 1;
+const DeckTime = styled.Text`
+  color: rgba(255, 255, 255, 0.7);
 `;
 
 const DeckDetails = styled.Text`
-  color: #95a5a6;
+  font-size: 12px;
+  color: rgba(255, 255, 255, 0.7);
+  text-transform: uppercase;
 `;
+
+const RightActions = (progress, dragX) => {
+  const scale = dragX.interpolate({
+    inputRange: [-100, 0],
+    outputRange: [1.2, 0],
+    extrapolate: "clamp",
+  });
+
+  return (
+    <Animated.View
+      style={{
+        // backgroundColor: "#c0392b",
+        justifyContent: "center",
+      }}
+    >
+      <Animated.Text style={{ color: "#fff", fontWeight: "600", padding: 20 }}>
+        Delete
+      </Animated.Text>
+    </Animated.View>
+  );
+};
 
 const DeckItem = ({ deck, onPress }) => {
   return (
-    <Button underlayColor={"#ecf0f1"} onPress={() => onPress(deck?.title)}>
-      <Fragment>
-        <DeckMain>
-          <DeckName>{deck?.title}</DeckName>
-          <Text style={{ color: "#bdc3c7" }}>30 mins ago</Text>
-        </DeckMain>
-
-        <DeckDescription>
-          A small description, lorem ipsum dolor sit amet, consectetur
-          adipiscing elit. Etiam malesuada justo lectus, nec pellentesque diam
-          tempor pharetra.
-        </DeckDescription>
-        <DeckDetails>{`${deck?.questions?.length} ${
-          deck?.questions?.length > 1 || deck?.questions?.length == 0
-            ? "cards"
-            : "card"
-        }`}</DeckDetails>
-      </Fragment>
-    </Button>
+    <Swipeable renderRightActions={RightActions}>
+      <Button underlayColor={"#16a085"} onPress={() => onPress(deck?.title)}>
+        <Fragment>
+          <DeckMain>
+            <DeckName>{deck?.title}</DeckName>
+            <DeckTime>30 mins ago</DeckTime>
+          </DeckMain>
+          <DeckDetails>{`${deck?.questions?.length} ${
+            deck?.questions?.length > 1 || deck?.questions?.length == 0
+              ? "cards"
+              : "card"
+          }`}</DeckDetails>
+        </Fragment>
+      </Button>
+    </Swipeable>
   );
 };
 
