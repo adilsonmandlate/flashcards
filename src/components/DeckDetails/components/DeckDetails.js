@@ -42,12 +42,6 @@ const DeckDetails = ({ route, navigation }) => {
     return unsubscribe;
   }, [navigation]);
 
-  useFocusEffect(
-    useCallback(() => {
-      StatusBar.setBarStyle("dark-content");
-    }, [])
-  );
-
   const getDeckData = () => {
     getDeck(id)
       .then((result) => {
@@ -74,35 +68,28 @@ const DeckDetails = ({ route, navigation }) => {
 
   return (
     <Container>
-      <SafeAreaView style={{ flex: 1 }}>
-        <View style={{ flex: 1 }}>
-          <DeckName>{deck?.title}</DeckName>
-          <Text style={{ textAlign: "center" }}>
-            {`${deck?.questions?.length} ${
-              deck?.questions?.length > 1 ? "decks" : "deck"
-            }`}{" "}
-          </Text>
-        </View>
-        <ButtonContainers>
-          <ButtonTouchable
-            onPress={() =>
-              navigation.navigate("New Card", {
-                deckId: deck?.title,
-              })
-            }
-          >
-            <Text style={{ color: "#fff" }}>Add Card</Text>
-          </ButtonTouchable>
-          <ButtonTouchable onPress={startQuiz}>
-            <Text style={{ color: "#fff" }}>Start Quiz</Text>
-          </ButtonTouchable>
-          <Button
-            onPress={() => handleDelete(deck?.title)}
-            color="#e74c3c"
-            title="Delete Deck"
-          />
-        </ButtonContainers>
-      </SafeAreaView>
+      <View style={{ flex: 1 }}>
+        <DeckName>{deck?.title}</DeckName>
+        <Text style={{ textAlign: "center" }}>
+          {`${deck?.questions?.length} ${
+            deck?.questions?.length > 1 ? "decks" : "deck"
+          }`}{" "}
+        </Text>
+      </View>
+      <ButtonContainers>
+        <ButtonTouchable
+          onPress={() =>
+            navigation.navigate("New Card", {
+              deckId: deck?.title,
+            })
+          }
+        >
+          <Text style={{ color: "#fff" }}>Add Card</Text>
+        </ButtonTouchable>
+        <ButtonTouchable onPress={startQuiz}>
+          <Text style={{ color: "#fff" }}>Start Quiz</Text>
+        </ButtonTouchable>
+      </ButtonContainers>
     </Container>
   );
 };
