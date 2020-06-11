@@ -1,4 +1,5 @@
 import React, { useEffect, Fragment } from "react";
+import "react-native-gesture-handler";
 import { NavigationContainer } from "@react-navigation/native";
 import { MainRoute } from "./src/components";
 import { SafeAreaView, StatusBar } from "react-native";
@@ -16,7 +17,7 @@ export default App = () => {
 
   return (
     <SafeAreaProvider>
-      <StatusBar barStyle="dark-content" />
+      <StatusBar barStyle="light-content" />
       <NavigationContainer ref={navigationRef}>
         <MainRoute />
       </NavigationContainer>
