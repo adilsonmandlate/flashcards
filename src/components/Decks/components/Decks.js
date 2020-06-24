@@ -3,7 +3,6 @@ import { FlatList, StatusBar, View } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
 import DeckItem from "./DeckItem";
 import { getDecks } from "../../../utils/helper";
-import { useFocusEffect } from "@react-navigation/native";
 import { navigate } from "../../../utils/RootNavigation";
 import { LinearGradient } from "expo-linear-gradient";
 
@@ -31,6 +30,8 @@ const DecksList = ({ navigation }) => {
   const onPress = (id) => {
     navigation.navigate("Deck Details", {
       id,
+      // TODO: Use proper id instead of title to store data. Generate id from uuid library
+      title: decks.filter((deck) => deck.title == id)[0].title,
     });
   };
 
