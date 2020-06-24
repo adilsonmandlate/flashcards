@@ -26,6 +26,15 @@ const DecksListNavigator = () => {
           headerRight: () => <RenderActions />,
         }}
       />
+      <Stack.Screen
+        name="Deck Details"
+        component={DeckDetails}
+        options={({ route }) => ({
+          headerLargeTitle: true,
+          headerBackTitle: "",
+          title: route.params.title,
+        })}
+      />
       <Stack.Screen name="Quiz" component={Quiz} />
       <Stack.Screen
         name="Add Deck"
@@ -43,7 +52,6 @@ const DecksListNavigator = () => {
           stackPresentation: "modal",
         }}
       />
-      <Stack.Screen name="Deck Details" component={DeckDetails} />
     </Stack.Navigator>
   );
 };
